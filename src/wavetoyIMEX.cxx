@@ -120,18 +120,18 @@ extern "C" void WaveToyIMEX_Initialize(CCTK_ARGUMENTS) {
 
     loop_int<0, 0, 0>(cctkGH, [&](const PointDesc &p) {
       gf_phi(p.I) = periodic_gaussian(t, p.x, p.y, p.z);
-      gf_mu(p.I) = 0;
+      gf_mu(p.I) = timederiv(periodic_gaussian, dt)(t, p.x, p.y, p.z);
       gf_zeta(p.I) = periodic_gaussian(t, p.x, p.y, p.z);
-      gf_nu(p.I) = 0;
+      gf_nu(p.I) = timederiv(periodic_gaussian, dt)(t, p.x, p.y, p.z);
     });
 
   } else if (CCTK_EQUALS(initial_condition, "Gaussian")) {
 
     loop_int<0, 0, 0>(cctkGH, [&](const PointDesc &p) {
       gf_phi(p.I) = gaussian(t, p.x, p.y, p.z);
-      gf_mu(p.I) = 0;
+      gf_mu(p.I) = timederiv(periodic_gaussian, dt)(t, p.x, p.y, p.z);
       gf_zeta(p.I) = gaussian(t, p.x, p.y, p.z);
-      gf_nu(p.I) = 0;
+      gf_nu(p.I) = timederiv(periodic_gaussian, dt)(t, p.x, p.y, p.z);
     });
 
   } else {
