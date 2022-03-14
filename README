@@ -1,0 +1,11 @@
+Cactus Code Thorn WaveToyIMEX
+Author(s)    : Annamalai P S <annamalaips.97@gmail.com>
+Maintainer(s): Annamalai P S <annamalaips.97@gmail.com>
+Licence      : LGPL
+--------------------------------------------------------------------------
+
+1. Purpose
+
+A wave toy using the CarpetX driver, using CPU kernels and IMEX integrators.
+
+Visit: https://github.com/annamalai-ps/IMEX/tree/main/IMEX_1D_scalar_wave_evolution
