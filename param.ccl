@@ -40,7 +40,7 @@ CCTK_REAL wave_speed_phi "wave speed phi"
 CCTK_REAL wave_speed_zeta "wave speed zeta"
 {
   *:* :: ""
-} 1.1
+} 2.0
 
 KEYWORD boundary_condition "Boundary condition"
 {
