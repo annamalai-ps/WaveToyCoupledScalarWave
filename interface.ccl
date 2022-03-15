@@ -1,6 +1,6 @@
-# Interface definition for thorn WaveToyIMEX
+# Interface definition for thorn WaveToyCoupledScalarWave
 
-IMPLEMENTS: WaveToyIMEX
+IMPLEMENTS: WaveToyCoupledScalarWave
 
 INHERITS: CarpetX
 
@@ -26,14 +26,3 @@ CCTK_REAL rhs TYPE=gf TAGS='index={0 0 0} checkpoint="no"'
   zeta_rhs
   nu_rhs
 } "RHS for scalar potential for wave equation"
-
-# CCTK_REAL energy TYPE=gf TAGS='index={0 0 0} checkpoint="no"'
-# {
-#   eps
-# } "Energy density for wave equation"
-
-# CCTK_REAL err TYPE=gf TAGS='index={0 0 0} checkpoint="no"'
-# {
-#   phierr
-#   psierr
-# } "Error of wave equation solution"

@@ -8,7 +8,7 @@ ActiveThorns = "
     IOUtil
     ODESolvers
     SystemTopology
-    WaveToyIMEX
+    WaveToyCoupledScalarWave
 "
  
 $nlevels = 1
@@ -37,11 +37,11 @@ CarpetX::regrid_error_threshold = 1.0   #TODO 0.01
 ODESolvers::method = "RK4"
 CarpetX::dtfac = 0.25
 
-WaveToyIMEX::initial_condition = "periodic Gaussian"
+WaveToyCoupledScalarWave::initial_condition = "periodic Gaussian"
 
-# WaveToyIMEX::spatial_frequency_x = 0.5
-# WaveToyIMEX::spatial_frequency_y = 0.0
-# WaveToyIMEX::spatial_frequency_z = 0.0
+# WaveToyCoupledScalarWave::spatial_frequency_x = 0.5
+# WaveToyCoupledScalarWave::spatial_frequency_y = 0.0
+# WaveToyCoupledScalarWave::spatial_frequency_z = 0.0
 
 IO::out_dir = $parfile
 # High frequency output to make a movie
@@ -49,11 +49,11 @@ IO::out_every = 16   #TODO $ncells * 2 ** ($nlevels - 1) / 2
 
 CarpetX::out_tsv = no
 CarpetX::out_openpmd_vars = "
-WaveToyIMEX::phi
-WaveToyIMEX::zeta
+WaveToyCoupledScalarWave::phi
+WaveToyCoupledScalarWave::zeta
 "
 
 CarpetX::out_silo_vars = "
-WaveToyIMEX::phi
-WaveToyIMEX::zeta
+WaveToyCoupledScalarWave::phi
+WaveToyCoupledScalarWave::zeta
 "

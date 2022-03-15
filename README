@@ -5,6 +5,6 @@ Maintainer(s): Annamalai P S <annamalaips.97@gmail.com>
 
 1. Purpose
 
-A wave toy using the CarpetX driver, using CPU kernels and IMEX integrators.
+A coupled scalar wave toy evolved using explicit integrators and the CarpetX driver, using CPU kernels.
 
 Visit: https://github.com/annamalai-ps/IMEX/tree/main/IMEX_1D_scalar_wave_evolution

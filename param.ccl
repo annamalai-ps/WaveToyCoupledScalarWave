@@ -1,4 +1,4 @@
-# Parameter definitions for thorn WaveToyIMEX
+# Parameter definitions for thorn WaveToyCoupledScalarWave
 
 
 KEYWORD initial_condition "Initial condition"

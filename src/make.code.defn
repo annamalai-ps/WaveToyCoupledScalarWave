@@ -1,7 +1,7 @@
-# Main make.code.defn file for thorn WaveToyIMEX
+# Main make.code.defn file for thorn WaveToyCoupledScalarWave
 
 # Source files in this directory
-SRCS = wavetoyIMEX.cxx
+SRCS = WaveToyCoupledScalarWave.cxx
 
 # Subdirectories containing source files
 SUBDIRS = 

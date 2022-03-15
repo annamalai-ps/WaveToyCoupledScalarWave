@@ -1,37 +1,32 @@
-# Schedule definitions for thorn WaveToyIMEX
+# Schedule definitions for thorn WaveToyCoupledScalarWave
 # Define some schedule groups to organize the schedule
 
-SCHEDULE GROUP WaveToyIMEX_InitialGroup AT initial
+SCHEDULE GROUP WaveToyCoupledScalarWave_InitialGroup AT initial
 {
 } "Set up initial conditions"
 
 
 
-SCHEDULE GROUP WaveToyIMEX_PostStepGroup AT postinitial
-{
-} "Post-process state variables"
-
-# SCHEDULE GROUP WaveToyIMEX_PostStepGroup AT postrestrict
-# {
-# } "Post-process state variables"
-
-SCHEDULE GROUP WaveToyIMEX_PostStepGroup AT postregrid
+SCHEDULE GROUP WaveToyCoupledScalarWave_PostStepGroup AT postinitial
 {
 } "Post-process state variables"
 
 
-
-SCHEDULE GROUP WaveToyIMEX_PostStepGroup IN ODESolvers_PostStep
+SCHEDULE GROUP WaveToyCoupledScalarWave_PostStepGroup AT postregrid
 {
 } "Post-process state variables"
 
-SCHEDULE GROUP WaveToyIMEX_RHSGroup IN ODESolvers_RHS
+
+SCHEDULE GROUP WaveToyCoupledScalarWave_PostStepGroup IN ODESolvers_PostStep
+{
+} "Post-process state variables"
+
+SCHEDULE GROUP WaveToyCoupledScalarWave_RHSGroup IN ODESolvers_RHS
 {
 } "Calculate RHS"
 
 
-
-SCHEDULE GROUP WaveToyIMEX_AnalysisGroup AT analysis
+SCHEDULE GROUP WaveToyCoupledScalarWave_AnalysisGroup AT analysis
 {
 } "Analyse state"
 
@@ -39,20 +34,20 @@ SCHEDULE GROUP WaveToyIMEX_AnalysisGroup AT analysis
 
 
 
-SCHEDULE WaveToyIMEX_Initialize IN WaveToyIMEX_InitialGroup
+SCHEDULE WaveToyCoupledScalarWave_Initialize IN WaveToyCoupledScalarWave_InitialGroup
 {
   LANG: C
   WRITES: phi(interior) mu(interior) zeta(interior) nu(interior)
 } "Set up initial conditions for the wave equation"
 
-SCHEDULE WaveToyIMEX_Sync IN WaveToyIMEX_PostStepGroup
+SCHEDULE WaveToyCoupledScalarWave_Sync IN WaveToyCoupledScalarWave_PostStepGroup
 {
   LANG: C
   OPTIONS: global
   SYNC: state
 } "Boundary conditions for the wave equation"
 
-SCHEDULE WaveToyIMEX_Boundaries IN WaveToyIMEX_PostStepGroup AFTER WaveToyIMEX_Sync
+SCHEDULE WaveToyCoupledScalarWave_Boundaries IN WaveToyCoupledScalarWave_PostStepGroup AFTER WaveToyCoupledScalarWave_Sync
 {
   LANG: C
   READS: state(interior)
@@ -60,17 +55,7 @@ SCHEDULE WaveToyIMEX_Boundaries IN WaveToyIMEX_PostStepGroup AFTER WaveToyIMEX_S
 } "Boundary conditions for the wave equation"
 
 
-
-# SCHEDULE WaveToyIMEX_EstimateError IN WaveToyIMEX_PostStepGroup AFTER (WaveToyIMEX_Sync WaveToyIMEX_Boundaries)
-# {
-#   LANG: C
-#   READS: phi(interior) mu(interior) zeta(interior) nu(interior)
-#   WRITES: CarpetX::regrid_error(interior)
-# } "Estimate local error for regridding initial conditions"
-
-
-
-SCHEDULE WaveToyIMEX_RHS IN WaveToyIMEX_RHSGroup
+SCHEDULE WaveToyCoupledScalarWave_RHS IN WaveToyCoupledScalarWave_RHSGroup
 {
   LANG: C
   READS: phi(everywhere) mu(everywhere) zeta(everywhere) nu(everywhere)
@@ -78,32 +63,15 @@ SCHEDULE WaveToyIMEX_RHS IN WaveToyIMEX_RHSGroup
   SYNC: rhs
 } "Calculate RHS for the wave equation"
 
-SCHEDULE WaveToyIMEX_RHSSync IN WaveToyIMEX_RHSGroup AFTER WaveToyIMEX_RHS
+SCHEDULE WaveToyCoupledScalarWave_RHSSync IN WaveToyCoupledScalarWave_RHSGroup AFTER WaveToyCoupledScalarWave_RHS
 {
   LANG: C
   OPTIONS: global
   SYNC: rhs
 } "Boundary conditions for the RHS of the wave equation"
 
-SCHEDULE WaveToyIMEX_RHSBoundaries IN WaveToyIMEX_RHSGroup AFTER WaveToyIMEX_RHSSync
+SCHEDULE WaveToyCoupledScalarWave_RHSBoundaries IN WaveToyCoupledScalarWave_RHSGroup AFTER WaveToyCoupledScalarWave_RHSSync
 {
   LANG: C
   WRITES: phi_rhs(boundary) mu_rhs(boundary) zeta_rhs(boundary) nu_rhs(boundary)
 } "Boundary conditions for the RHS of the wave equation"
-
-
-
-# SCHEDULE WaveToyIMEX_Energy IN WaveToyIMEX_AnalysisGroup
-# {
-#   LANG: C
-#   READS: phi(everywhere) psi(interior)
-#   WRITES: eps(interior)
-#   SYNC: energy
-# } "Calculate energy density for the wave equation"
-
-# SCHEDULE WaveToyIMEX_Error IN WaveToyIMEX_AnalysisGroup
-# {
-#   LANG: C
-#   READS: phi(everywhere) psi(everywhere)
-#   WRITES: phierr(everywhere) psierr(everywhere)
-# } "Calculate error for the wave equation"

@@ -12,7 +12,7 @@
 #include <cmath>
 #include <iostream>
 
-namespace WaveToyIMEX {
+namespace WaveToyCoupledScalarWave {
 using namespace std;
 using namespace Loop;
 
@@ -102,8 +102,8 @@ CCTK_REAL gaussian(CCTK_REAL t, CCTK_REAL x, CCTK_REAL y, CCTK_REAL z) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-extern "C" void WaveToyIMEX_Initialize(CCTK_ARGUMENTS) {
-  DECLARE_CCTK_ARGUMENTS_WaveToyIMEX_Initialize;
+extern "C" void WaveToyCoupledScalarWave_Initialize(CCTK_ARGUMENTS) {
+  DECLARE_CCTK_ARGUMENTS_WaveToyCoupledScalarWave_Initialize;
   DECLARE_CCTK_PARAMETERS;
 
   const CCTK_REAL t = cctk_time;
@@ -139,15 +139,15 @@ extern "C" void WaveToyIMEX_Initialize(CCTK_ARGUMENTS) {
   }
 }
 
-extern "C" void WaveToyIMEX_Sync(CCTK_ARGUMENTS) {
-  DECLARE_CCTK_ARGUMENTS_WaveToyIMEX_Sync;
+extern "C" void WaveToyCoupledScalarWave_Sync(CCTK_ARGUMENTS) {
+  DECLARE_CCTK_ARGUMENTS_WaveToyCoupledScalarWave_Sync;
   DECLARE_CCTK_PARAMETERS;
 
   // Do nothing
 }
 
-extern "C" void WaveToyIMEX_Boundaries(CCTK_ARGUMENTS) {
-  DECLARE_CCTK_ARGUMENTS_WaveToyIMEX_Boundaries;
+extern "C" void WaveToyCoupledScalarWave_Boundaries(CCTK_ARGUMENTS) {
+  DECLARE_CCTK_ARGUMENTS_WaveToyCoupledScalarWave_Boundaries;
   DECLARE_CCTK_PARAMETERS;
 
   const CCTK_REAL t = cctk_time;
@@ -178,8 +178,8 @@ extern "C" void WaveToyIMEX_Boundaries(CCTK_ARGUMENTS) {
   }
 }
 
-extern "C" void WaveToyIMEX_RHS(CCTK_ARGUMENTS) {
-  DECLARE_CCTK_ARGUMENTS_WaveToyIMEX_RHS;
+extern "C" void WaveToyCoupledScalarWave_RHS(CCTK_ARGUMENTS) {
+  DECLARE_CCTK_ARGUMENTS_WaveToyCoupledScalarWave_RHS;
   DECLARE_CCTK_PARAMETERS;
 
   const CCTK_REAL t = cctk_time;
@@ -225,15 +225,15 @@ extern "C" void WaveToyIMEX_RHS(CCTK_ARGUMENTS) {
   });
 }
 
-extern "C" void WaveToyIMEX_RHSSync(CCTK_ARGUMENTS) {
-  DECLARE_CCTK_ARGUMENTS_WaveToyIMEX_RHSSync;
+extern "C" void WaveToyCoupledScalarWave_RHSSync(CCTK_ARGUMENTS) {
+  DECLARE_CCTK_ARGUMENTS_WaveToyCoupledScalarWave_RHSSync;
   DECLARE_CCTK_PARAMETERS;
 
   // Do nothing
 }
 
-extern "C" void WaveToyIMEX_RHSBoundaries(CCTK_ARGUMENTS) {
-  DECLARE_CCTK_ARGUMENTS_WaveToyIMEX_RHSBoundaries;
+extern "C" void WaveToyCoupledScalarWave_RHSBoundaries(CCTK_ARGUMENTS) {
+  DECLARE_CCTK_ARGUMENTS_WaveToyCoupledScalarWave_RHSBoundaries;
   DECLARE_CCTK_PARAMETERS;
 
   const array<int, dim> indextype = {0, 0, 0};
@@ -253,4 +253,4 @@ extern "C" void WaveToyIMEX_RHSBoundaries(CCTK_ARGUMENTS) {
 }
 
 
-} // namespace WaveToyIMEX
+} // namespace WaveToyCoupledScalarWave
