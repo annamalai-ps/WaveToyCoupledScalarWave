@@ -1,8 +1,3 @@
-# run.me:
-# run.cores: 40
-# run.memory: 1.0e9
-# run.time: 3600.0
-
 ActiveThorns = "
     CarpetX
     IOUtil
@@ -26,6 +21,7 @@ CarpetX::ncells_x = $ncells
 CarpetX::ncells_y = $ncells
 CarpetX::ncells_z = $ncells
 
+# Set continous periodic boundaries:
 CarpetX::periodic_x = yes
 CarpetX::periodic_y = yes
 CarpetX::periodic_z = yes
@@ -34,8 +30,8 @@ CarpetX::max_num_levels = $nlevels
 CarpetX::regrid_every = 16
 CarpetX::regrid_error_threshold = 1.0   #TODO 0.01
 
-ODESolvers::method = "RK4"
-CarpetX::dtfac = 0.25
+ODESolvers::method = "RK3"
+CarpetX::dtfac = 0.1
 
 WaveToyCoupledScalarWave::initial_condition = "periodic Gaussian"
 

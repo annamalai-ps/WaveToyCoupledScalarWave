@@ -146,38 +146,6 @@ extern "C" void WaveToyCoupledScalarWave_Sync(CCTK_ARGUMENTS) {
   // Do nothing
 }
 
-extern "C" void WaveToyCoupledScalarWave_Boundaries(CCTK_ARGUMENTS) {
-  DECLARE_CCTK_ARGUMENTS_WaveToyCoupledScalarWave_Boundaries;
-  DECLARE_CCTK_PARAMETERS;
-
-  const CCTK_REAL t = cctk_time;
-  const CCTK_REAL dt = CCTK_DELTA_TIME;
-
-  const array<int, dim> indextype = {0, 0, 0};
-  const GF3D2layout layout(cctkGH, indextype);
-  const GF3D2<CCTK_REAL> gf_phi(layout, phi);
-  const GF3D2<CCTK_REAL> gf_zeta(layout, zeta);
-  const GF3D2<CCTK_REAL> gf_mu(layout, mu);
-  const GF3D2<CCTK_REAL> gf_nu(layout, nu);
-
-  if (CCTK_EQUALS(boundary_condition, "none")) {
-
-    // do nothing
-
-  } else if (CCTK_EQUALS(boundary_condition, "reflective")) {
-
-    loop_bnd<0, 0, 0>(cctkGH, [&](const PointDesc &p) {
-        gf_phi(p.I) = 0;
-        gf_mu(p.I) = 0;
-        gf_zeta(p.I) = 0;
-        gf_nu(p.I) = 0;
-      });
-
-  } else {
-    assert(0);
-  }
-}
-
 extern "C" void WaveToyCoupledScalarWave_RHS(CCTK_ARGUMENTS) {
   DECLARE_CCTK_ARGUMENTS_WaveToyCoupledScalarWave_RHS;
   DECLARE_CCTK_PARAMETERS;
@@ -232,25 +200,6 @@ extern "C" void WaveToyCoupledScalarWave_RHSSync(CCTK_ARGUMENTS) {
   // Do nothing
 }
 
-extern "C" void WaveToyCoupledScalarWave_RHSBoundaries(CCTK_ARGUMENTS) {
-  DECLARE_CCTK_ARGUMENTS_WaveToyCoupledScalarWave_RHSBoundaries;
-  DECLARE_CCTK_PARAMETERS;
-
-  const array<int, dim> indextype = {0, 0, 0};
-  const GF3D2layout layout(cctkGH, indextype);
-  const GF3D2<CCTK_REAL> gf_phi_rhs(layout, phi_rhs);
-  const GF3D2<CCTK_REAL> gf_zeta_rhs(layout, zeta_rhs);
-  const GF3D2<CCTK_REAL> gf_mu_rhs(layout, mu_rhs);
-  const GF3D2<CCTK_REAL> gf_nu_rhs(layout, nu_rhs);
-
-  // Dirichlet boundary conditions
-  loop_bnd<0, 0, 0>(cctkGH, [&](const PointDesc &p) {
-    gf_phi_rhs(p.I) = 0;
-    gf_mu_rhs(p.I) = 0;
-    gf_zeta_rhs(p.I) = 0;
-    gf_nu_rhs(p.I) = 0;
-  });
-}
 
 
 } // namespace WaveToyCoupledScalarWave
