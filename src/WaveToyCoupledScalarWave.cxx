@@ -184,27 +184,29 @@ extern "C" void WaveToyCoupledScalarWave_RHS(CCTK_ARGUMENTS) {
 
   loop_int<0, 0, 0>(cctkGH, [&](const PointDesc &p) {
 
-    CCTK_REAL ddx_phi =
-        (gf_phi(p.I - p.DI[0]) - 2 * gf_phi(p.I) + gf_phi(p.I + p.DI[0])) /
-        pow(p.dx, 2);
-    CCTK_REAL ddy_phi =
-        (gf_phi(p.I - p.DI[1]) - 2 * gf_phi(p.I) + gf_phi(p.I + p.DI[1])) /
-        pow(p.dy, 2);
-    CCTK_REAL ddz_phi =
-        (gf_phi(p.I - p.DI[2]) - 2 * gf_phi(p.I) + gf_phi(p.I + p.DI[2])) /
-        pow(p.dz, 2);
+    CCTK_REAL ddx_phi = ( -gf_phi(p.I + 2*p.DI[0]) + 16*gf_phi(p.I + p.DI[0]) - 30*gf_phi(p.I) + 
+                        16*gf_phi(p.I - p.DI[0]) - gf_phi(p.I - 2*p.DI[0]) ) / ( 12*pow(p.dx, 2) );
+
+    CCTK_REAL ddy_phi = ( -gf_phi(p.I + 2*p.DI[1]) + 16*gf_phi(p.I + p.DI[1]) - 30*gf_phi(p.I) + 
+                        16*gf_phi(p.I - p.DI[1]) - gf_phi(p.I - 2*p.DI[1]) ) / ( 12*pow(p.dx, 2) );
+
+    CCTK_REAL ddz_phi = ( -gf_phi(p.I + 2*p.DI[2]) + 16*gf_phi(p.I + p.DI[2]) - 30*gf_phi(p.I) +
+                        16*gf_phi(p.I - p.DI[2]) - gf_phi(p.I - 2*p.DI[2]) ) / ( 12*pow(p.dx, 2) );
+
+
     gf_mu_rhs(p.I) = pow(wave_speed_phi,2) * (ddx_phi + ddy_phi + ddz_phi);
     gf_phi_rhs(p.I) = gf_mu(p.I);
 
-    CCTK_REAL ddx_zeta =
-        (gf_zeta(p.I - p.DI[0]) - 2 * gf_zeta(p.I) + gf_zeta(p.I + p.DI[0])) /
-        pow(p.dx, 2);
-    CCTK_REAL ddy_zeta =
-        (gf_zeta(p.I - p.DI[1]) - 2 * gf_zeta(p.I) + gf_zeta(p.I + p.DI[1])) /
-        pow(p.dy, 2);
-    CCTK_REAL ddz_zeta =
-        (gf_zeta(p.I - p.DI[2]) - 2 * gf_zeta(p.I) + gf_zeta(p.I + p.DI[2])) /
-        pow(p.dz, 2);
+    CCTK_REAL ddx_zeta = ( -gf_zeta(p.I + 2*p.DI[0]) + 16*gf_zeta(p.I + p.DI[0]) - 30*gf_zeta(p.I) + 
+			16*gf_zeta(p.I - p.DI[0]) - gf_zeta(p.I - 2*p.DI[0]) ) / ( 12*pow(p.dx, 2) );
+
+    CCTK_REAL ddy_zeta = ( -gf_zeta(p.I + 2*p.DI[1]) + 16*gf_zeta(p.I + p.DI[1]) - 30*gf_zeta(p.I) + 
+			16*gf_zeta(p.I - p.DI[1]) - gf_zeta(p.I - 2*p.DI[1]) ) / ( 12*pow(p.dx, 2) );
+
+    CCTK_REAL ddz_zeta = ( -gf_zeta(p.I + 2*p.DI[2]) + 16*gf_zeta(p.I + p.DI[2]) - 30*gf_zeta(p.I) +
+			 16*gf_zeta(p.I - p.DI[2]) - gf_zeta(p.I - 2*p.DI[2]) ) / ( 12*pow(p.dx, 2) );
+
+
     gf_nu_rhs(p.I) = pow(wave_speed_zeta,2) * (ddx_zeta + ddy_zeta + ddz_zeta);
     gf_zeta_rhs(p.I) = gf_nu(p.I) - coupling_factor*(gf_zeta(p.I) - gf_phi(p.I));
 
