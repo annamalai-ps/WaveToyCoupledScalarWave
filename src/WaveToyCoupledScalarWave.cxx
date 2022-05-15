@@ -127,7 +127,7 @@ extern "C" void WaveToyCoupledScalarWave_Initialize(CCTK_ARGUMENTS) {
 
   if (CCTK_EQUALS(initial_condition, "standing wave")) {
 
-    loop_int<1, 1, 1>(cctkGH, [&](const PointDesc &p) {
+    loop_int<0, 0, 0>(cctkGH, [&](const PointDesc &p) {
       gf_phi(p.I) = standing(t, p.x, p.y, p.z);
       gf_mu(p.I) = timederiv(standing, dt)(t, p.x, p.y, p.z);
       gf_zeta(p.I) = standing(t, p.x, p.y, p.z);
